@@ -3,7 +3,7 @@ var prex = 0;
 var x = 0;
 var canvas;
 var ctx;
-
+var move = 0;
 function setup() {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
@@ -12,11 +12,16 @@ function setup() {
     ctx.lineWidth = 1;
 }
 function draw() {
-    radius = 10
-    if (x > canvas.width-radius){
-        clearInterval(drawtimer)
-        return
+    var radius = 10;
+    if (x <= 0){
+        move = 10;
+    } else if (x >= canvas.width-radius){
+        move = -10
     }
+//    if (x > canvas.width-radius){
+//        clearInterval(drawtimer)
+//        return
+//    }
     // Erase the previous image
     ctx.beginPath();
     ctx.strokeStyle = 'black'
@@ -35,7 +40,7 @@ function draw() {
     ctx.fill()
     ctx.stroke()
     prex = x
-    x = x + radius*1.4;    
+    x = x + move;    
     ctx.beginPath();
 }
 
