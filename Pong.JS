@@ -1,3 +1,5 @@
+var theta = Math.random()*100;
+var hyp = 2;
 var drawtimer;
 var angle = 0;
 var prex = 0;
@@ -10,21 +12,27 @@ var y = 0;
 function setup() {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.lineWidth = 1;
 }
 function draw() {
     var radius = 10;
+    newx = Math.ceil(hyp * Math.sin(theta * Math.PI/180));
     if (x <= 0){
-        move = 1;
+        move = newx;
+        theta=theta-Math.random()*100;
     } else if (x >= canvas.width-radius){
-        move = -1;
+        move = -1 * newx;
+        theta=theta+Math.random()*100;
     }
+    newy = Math.ceil(hyp * Math.cos(theta * Math.PI/180));
     if (y <= 0){
-        angle = 1
+        angle = newy
+        theta=theta+Math.random()*100
     } else if (y >= canvas.height-radius){
-        angle = -1
+        angle = -1 * newy
+        theta=theta-Math.random()*100;
     }
 
     //    if (x > canvas.width-radius){
@@ -59,5 +67,5 @@ function draw() {
 function myfunction() {
     setup();
     draw();
-    drawtimer = setInterval(function(){ draw(); }, 1);
+    drawtimer = setInterval(function(){ draw(); }, 5);
 }
