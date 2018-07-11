@@ -51,7 +51,7 @@ function draw() {
     // Draw a new one
     ctx.beginPath();
     ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(x, y, radius, radius);
     ctx.fill()
