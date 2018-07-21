@@ -1,10 +1,8 @@
 var i = 0;
-var preplayerpaddley = 0;
-var playerpaddlex = 0;
-var playerpaddley = 300;
-var precompaddley = 0;
-var compaddley = 0;
-var compaddlex = 0;
+var playerPaddleX = 0;
+var playerPaddleY = 300;
+var comPaddleY = 0;
+var comPaddleX = 0;
 var theta = 10;
 var hyp = 2;
 var drawtimer;
@@ -25,10 +23,10 @@ function reset() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     precompaddley = 0;
-    compaddley = 0;
-    compaddlex = 0;
-    playerpaddlex = 0;
-    playerpaddley = 300;
+    comPaddleY = 0;
+    comPaddleX = 0;
+    playerPaddleX = 0;
+    playerPaddleY = 300;
     preplayerpaddley = 300;
     theta = 1;
     hyp = 2;
@@ -43,8 +41,8 @@ function reset() {
     prey = 0;
     x = 50; //radius + 10;
     y = radius + 10;
-    playerpaddlex = 20;
-    compaddlex = canvas.width - 20;
+    playerPaddleX = 20;
+    comPaddleX = canvas.width - 20;
     i = 0;
 }
 function setup() {
@@ -60,12 +58,12 @@ function moveball() {
     prey = y
     x = x + move;
     y = y + angle
-    if (x > playerpaddlex - 1 && x < playerpaddlex + radius + 1) {
-        if (y >= playerpaddley && y <= playerpaddley + paddleHeight) {
+    if (x > playerPaddleX - 1 && x < playerPaddleX + radius + 1) {
+        if (y >= playerPaddleY && y <= playerPaddleY + paddleHeight) {
             move = 1 * newx;
         }
-    } else if (x == compaddlex - radius) {
-        if (y > compaddley - 1 && y < compaddley + paddleHeight) {
+    } else if (x == comPaddleX - radius) {
+        if (y > comPaddleY - 1 && y < comPaddleY + paddleHeight) {
             move = -1 * newx;
         }
     }
@@ -101,52 +99,52 @@ function drawball() {
 }
 
 function drawPaddles() {
-    halfPaddleHeight = paddleHeight / 2 
-    if (playerpaddley > y - halfPaddleHeight) {
-        playerpaddley = playerpaddley - paddleSpeed
-    } else {
-        playerpaddley = playerpaddley + paddleSpeed
-    }
-    if (compaddley > y - halfPaddleHeight) {
-        compaddley = compaddley - paddleSpeed
-    } else {
-        compaddley = compaddley + paddleSpeed
-    }
+    // Erase both paddles first
     ctx.beginPath();
     ctx.strokeStyle = 'black'
     ctx.fillStyle = 'black';
-    ctx.fillRect(compaddlex, precompaddley, radius, paddleHeight)
+    ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight)
     // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fill()
     ctx.stroke()
+
+    ctx.beginPath();
+    ctx.strokeStyle = 'black'
+    ctx.fillStyle = 'black';
+    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight)
+    // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
+    ctx.fill()
+    ctx.stroke()
+
+    // Calculate new positions for the paddles.
+    halfPaddleHeight = paddleHeight / 2
+    if (playerPaddleY > y - halfPaddleHeight) {
+        playerPaddleY = playerPaddleY - paddleSpeed
+    } else {
+        playerPaddleY = playerPaddleY + paddleSpeed
+    }
+    if (comPaddleY > y - halfPaddleHeight) {
+        comPaddleY = comPaddleY - paddleSpeed
+    } else {
+        comPaddleY = comPaddleY + paddleSpeed
+    }
+    // Draw a new one
+    ctx.beginPath();
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = 'white';
+    // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
+    ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight);
 
     // Draw a new one
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.fillStyle = 'white';
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
-    ctx.fillRect(compaddlex, compaddley, radius, paddleHeight);
-
-    ctx.beginPath();
-    ctx.strokeStyle = 'black'
-    ctx.fillStyle = 'black';
-    ctx.fillRect(playerpaddlex, preplayerpaddley, radius, paddleHeight)
-    // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
-    ctx.fill()
-    ctx.stroke()
-
-    // Draw a new one
-    ctx.beginPath();
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
-    // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
-    ctx.fillRect(playerpaddlex, playerpaddley, radius, paddleHeight);
+    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
     ctx.fill()
     ctx.stroke()
 
     ctx.beginPath();
-    precompaddley = compaddley
-    preplayerpaddley = playerpaddley
 }
 
 function draw() {
