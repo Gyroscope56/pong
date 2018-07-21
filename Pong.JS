@@ -8,13 +8,13 @@ var compaddlex = 0;
 var theta = 10;
 var hyp = 2;
 var drawtimer;
-var angle = 0;
+var angle = Math.ceil(Math.random() * 100);
 var prex = 0;
 var prey = 0;
 var x = 0;
 var canvas;
 var ctx;
-var move = 10;
+var move = Math.ceil(Math.random() * 100);
 var y = 0;
 var radius = 10;
 
@@ -31,8 +31,10 @@ function reset() {
     theta = 1;
     hyp = 2;
     drawtimer;
-    newx = Math.ceil(hyp * Math.sin(theta * Math.PI / 180));
-    newy = Math.ceil(hyp * Math.cos(theta * Math.PI / 180));
+    newx = Math.ceil(Math.random() * 10)
+    newy = Math.ceil(Math.random() * 10)
+    //    newx = Math.ceil(hyp * Math.sin(theta * Math.PI / 180));
+    //    newy = Math.ceil(hyp * Math.cos(theta * Math.PI / 180));
     angle = newy;
     move = newx;
     prex = 0;
@@ -72,9 +74,9 @@ function moveball() {
         reset()
     }
     if (y <= 0) {
-        angle = newy
+        angle = 1 * newy;
     } else if (y >= canvas.height - radius) {
-        angle = -1 * newy
+        angle = -1 * newy;
     }
 }
 
@@ -96,10 +98,7 @@ function drawball() {
 
 }
 
-
-function draw() {
-    moveball()
-    drawball()
+function drawPaddles() {
     // Erase the previous image
     if (playerpaddley > y - 25) {
         playerpaddley = playerpaddley - 1.75
@@ -126,8 +125,6 @@ function draw() {
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(compaddlex, compaddley, radius, 50);
 
-
-
     ctx.beginPath();
     ctx.strokeStyle = 'black'
     ctx.fillStyle = 'black';
@@ -145,10 +142,15 @@ function draw() {
     ctx.fill()
     ctx.stroke()
 
-
     ctx.beginPath();
     precompaddley = compaddley
     preplayerpaddley = playerpaddley
+}
+
+function draw() {
+    moveball()
+    drawball()
+    drawPaddles()
 }
 
 function myfunction() {
