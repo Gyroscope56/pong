@@ -17,7 +17,8 @@ var y = 0;
 var radius = 10;
 var paddleHeight = 100;
 var paddleSpeed = 1.75;
-
+var ballColor = "red"
+var paddleColor = "gray"
 
 function reset() {
     ctx.fillStyle = "black";
@@ -93,7 +94,7 @@ function drawball() {
     // Draw a new one
     ctx.beginPath();
     ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = ballColor;
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(x, y, radius, radius);
 
@@ -133,14 +134,14 @@ function drawPaddles() {
     // Draw a new one
     ctx.beginPath();
     ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = paddleColor;
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight);
 
     // Draw a new one
     ctx.beginPath();
     ctx.strokeStyle = 'black';
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = paddleColor;
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
     ctx.fill()
