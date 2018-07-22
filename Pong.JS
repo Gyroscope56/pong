@@ -25,7 +25,6 @@ function reset() {
     precompaddley = 0;
     comPaddleY = 0;
     comPaddleX = 0;
-    playerPaddleX = 0;
     playerPaddleY = 300;
     preplayerpaddley = 300;
     theta = 1;
@@ -45,6 +44,7 @@ function reset() {
     comPaddleX = canvas.width - 20;
     i = 0;
 }
+
 function setup() {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
@@ -53,6 +53,7 @@ function setup() {
     reset()
     ctx.lineWidth = 1;
 }
+
 function moveball() {
     prex = x
     prey = y
@@ -103,7 +104,8 @@ function drawPaddles() {
     ctx.beginPath();
     ctx.strokeStyle = 'black'
     ctx.fillStyle = 'black';
-    ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight)
+    var adjust = 1
+    ctx.fillRect(comPaddleX, comPaddleY - adjust, radius, paddleHeight + adjust)
     // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fill()
     ctx.stroke()
@@ -111,7 +113,7 @@ function drawPaddles() {
     ctx.beginPath();
     ctx.strokeStyle = 'black'
     ctx.fillStyle = 'black';
-    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight)
+    ctx.fillRect(playerPaddleX, playerPaddleY - adjust, radius, paddleHeight + adjust)
     // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fill()
     ctx.stroke()
@@ -156,5 +158,5 @@ function draw() {
 function myfunction() {
     setup();
     draw();
-    drawtimer = setInterval(function () { draw(); }, 10);
+    drawtimer = setInterval(function () { draw(); }, 15);
 }
