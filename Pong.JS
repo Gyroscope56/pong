@@ -26,12 +26,12 @@ function reset() {
     precompaddley = 0;
     comPaddleY = 0;
     comPaddleX = 0;
-    playerPaddleY = 300;
+    playerPaddleY = canvas.height/2;
     preplayerpaddley = 300;
     theta = 1;
     hyp = 2;
     drawtimer;
-    newx = Math.ceil(Math.random() * 3)
+    newx = 2 + Math.ceil(Math.random() * 3)
     newy = 3 // Math.ceil(Math.random() * 3)
     //    newx = Math.ceil(hyp * Math.sin(theta * Math.PI / 180));
     //    newy = Math.ceil(hyp * Math.cos(theta * Math.PI / 180));
@@ -43,10 +43,71 @@ function reset() {
     y = radius + 10;
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
-    i = 0;
+    DrawPlayerPaddle()
+ //   drawOverPlayerPaddle()    
+}
+function ErasePlayerPaddle(){
+    ctx.beginPath();
+    ctx.strokeStyle = 'black'
+    ctx.fillStyle = 'black';
+    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight)
+    // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
+    ctx.fill()
+    ctx.stroke()
+}
+function DrawPlayerPaddle(){
+    ctx.beginPath();
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = paddleColor;
+    // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
+    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
+    ctx.fill()
+    ctx.stroke()
+    ctx.beginPath();
+}
+function handleKeyDown(event){
+    console.log("Got keydown", event)
+    if (event.defaultPrevented) {
+        return; // Should do nothing if the default action has been cancelled
+    }
+    if (event.keyCode == 40) {
+        ErasePlayerPaddle()
+        playerPaddleY = playerPaddleY + 6
+        DrawPlayerPaddle()
+        // Draw a new one
+        return
+    } else if (event.keyCode == 38){
+        ErasePlayerPaddle()
+        playerPaddleY = playerPaddleY - 6
+        DrawPlayerPaddle()
+        return
+    }
+    event.preventDefault();
 }
 
+
+// function drawOverPlayerPaddle(){    
+//     ctx.beginPath();
+//     ctx.strokeStyle = 'black'
+//     ctx.fillStyle = 'black';
+//     ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight)
+//     // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
+//     ctx.fill()
+//     ctx.stroke()
+//     // Draw a new one
+//     ctx.beginPath();
+//     ctx.strokeStyle = 'black';
+//     ctx.fillStyle = paddleColor;
+//     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
+//     ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
+//     ctx.fill()
+//     ctx.stroke()
+//     ctx.beginPath();
+    
+// }
+
 function setup() {
+    window.addEventListener("keydown", handleKeyDown, true)
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     ctx.fillStyle = "black";
@@ -100,7 +161,7 @@ function drawball() {
 
 }
 
-function drawPaddles() {
+function drawComputerPaddle() {
     // Erase both paddles first
     ctx.beginPath();
     ctx.strokeStyle = 'black'
@@ -111,21 +172,13 @@ function drawPaddles() {
     ctx.fill()
     ctx.stroke()
 
-    ctx.beginPath();
-    ctx.strokeStyle = 'black'
-    ctx.fillStyle = 'black';
-    ctx.fillRect(playerPaddleX, playerPaddleY - adjust, radius, paddleHeight + adjust)
-    // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
-    ctx.fill()
-    ctx.stroke()
-
     // Calculate new positions for the paddles.
     halfPaddleHeight = paddleHeight / 2
-    if (playerPaddleY > y - halfPaddleHeight) {
-        playerPaddleY = playerPaddleY - paddleSpeed
-    } else {
-        playerPaddleY = playerPaddleY + paddleSpeed
-    }
+    //if (playerPaddleY > y - halfPaddleHeight) {
+      //  playerPaddleY = playerPaddleY - paddleSpeed
+    //} else {
+      //  playerPaddleY = playerPaddleY + paddleSpeed
+    //}
     if (comPaddleY > y - halfPaddleHeight) {
         comPaddleY = comPaddleY - paddleSpeed
     } else {
@@ -138,26 +191,16 @@ function drawPaddles() {
     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
     ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight);
 
-    // Draw a new one
-    ctx.beginPath();
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = paddleColor;
-    // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
-    ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
-    ctx.fill()
-    ctx.stroke()
-
-    ctx.beginPath();
 }
 
 function draw() {
     moveball()
     drawball()
-    drawPaddles()
+    drawComputerPaddle()
 }
 
 function myfunction() {
     setup();
     draw();
-    drawtimer = setInterval(function () { draw(); }, 15);
+    drawtimer = setInterval(function () { draw(); }, 20);
 }
