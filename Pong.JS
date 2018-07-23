@@ -16,9 +16,9 @@ var move = Math.ceil(Math.random() * 100);
 var y = 0;
 var radius = 12;
 var paddleHeight = 100;
-var paddleSpeed = 2;
-var ballColor = "red"
-var paddleColor = "gray"
+var paddleSpeed = 3;
+var ballColor = "white"
+var paddleColor = "white"
 
 function reset() {
     ctx.fillStyle = "black";
@@ -60,12 +60,12 @@ function moveball() {
     prey = y
     x = x + move;
     y = y + angle
-    if (x > playerPaddleX - 1 && x < playerPaddleX + radius + 1) {
+    if (x >= playerPaddleX - 1 && x < playerPaddleX + radius + 1) {
         if (y >= playerPaddleY && y <= playerPaddleY + paddleHeight) {
-            move = 1 * newx;
+            move = newx;
         }
-    } else if (x == comPaddleX - radius) {
-        if (y > comPaddleY - 1 && y < comPaddleY + paddleHeight) {
+    } else if (x >= comPaddleX - radius) {
+        if (y > comPaddleY - 1 && y < comPaddleY + paddleHeight + 1) {
             move = -1 * newx;
         }
     }
@@ -76,7 +76,7 @@ function moveball() {
         reset()
     }
     if (y <= 0) {
-        angle = 1 * newy;
+        angle = newy;
     } else if (y >= canvas.height - radius) {
         angle = -1 * newy;
     }
