@@ -39,8 +39,8 @@ function reset() {
     move = newx;
     prex = 0;
     prey = 0;
-    x = 50; //radius + 10;
-    y = radius + 10;
+    x = canvas.width/2; //radius + 10;
+    y = Math.ceil(Math.random()*canvas.height);
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
     DrawPlayerPaddle()
