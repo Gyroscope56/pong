@@ -15,7 +15,7 @@ var ctx;
 var move = Math.ceil(Math.random() * 100);
 var y = 0;
 var radius = 12;
-var paddleHeight = 100;
+var paddleHeight = 50;
 var paddleSpeed = 3;
 var ballColor = "white"
 var paddleColor = "white"
@@ -26,7 +26,7 @@ function reset() {
     precompaddley = 0;
     comPaddleY = 0;
     comPaddleX = 0;
-    playerPaddleY = canvas.height/2;
+    playerPaddleY = canvas.height / 2;
     preplayerpaddley = 300;
     theta = 1;
     hyp = 2;
@@ -44,9 +44,9 @@ function reset() {
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
     DrawPlayerPaddle()
- //   drawOverPlayerPaddle()    
+    //   drawOverPlayerPaddle()    
 }
-function ErasePlayerPaddle(){
+function ErasePlayerPaddle() {
     ctx.beginPath();
     ctx.strokeStyle = 'black'
     ctx.fillStyle = 'black';
@@ -55,7 +55,7 @@ function ErasePlayerPaddle(){
     ctx.fill()
     ctx.stroke()
 }
-function DrawPlayerPaddle(){
+function DrawPlayerPaddle() {
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.fillStyle = paddleColor;
@@ -65,20 +65,20 @@ function DrawPlayerPaddle(){
     ctx.stroke()
     ctx.beginPath();
 }
-function handleKeyDown(event){
+function handleKeyDown(event) {
     console.log("Got keydown", event)
     if (event.defaultPrevented) {
         return; // Should do nothing if the default action has been cancelled
     }
     if (event.keyCode == 40) {
         ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY + 6
+        playerPaddleY = playerPaddleY + 10
         DrawPlayerPaddle()
         // Draw a new one
         return
-    } else if (event.keyCode == 38){
+    } else if (event.keyCode == 38) {
         ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY - 6
+        playerPaddleY = playerPaddleY - 10
         DrawPlayerPaddle()
         return
     }
@@ -103,7 +103,7 @@ function handleKeyDown(event){
 //     ctx.fill()
 //     ctx.stroke()
 //     ctx.beginPath();
-    
+
 // }
 
 function setup() {
@@ -175,9 +175,9 @@ function drawComputerPaddle() {
     // Calculate new positions for the paddles.
     halfPaddleHeight = paddleHeight / 2
     //if (playerPaddleY > y - halfPaddleHeight) {
-      //  playerPaddleY = playerPaddleY - paddleSpeed
+    //  playerPaddleY = playerPaddleY - paddleSpeed
     //} else {
-      //  playerPaddleY = playerPaddleY + paddleSpeed
+    //  playerPaddleY = playerPaddleY + paddleSpeed
     //}
     if (comPaddleY > y - halfPaddleHeight) {
         comPaddleY = comPaddleY - paddleSpeed
@@ -192,11 +192,20 @@ function drawComputerPaddle() {
     ctx.fillRect(comPaddleX, comPaddleY, radius, paddleHeight);
 
 }
-
+function centerLine() {
+    ctx.beginPath();
+    ctx.strokeStyle = 'white'
+    ctx.fillStyle = 'white'
+    ctx.setLineDash([5, 10]);
+    ctx.moveTo(canvas.width/2, 0);
+    ctx.lineTo(canvas.width/2, canvas.height);
+    ctx.stroke();
+}
 function draw() {
     moveball()
     drawball()
     drawComputerPaddle()
+    centerLine()
 }
 
 function myfunction() {
