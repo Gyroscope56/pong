@@ -19,7 +19,8 @@ var paddleHeight = 75;
 var paddleSpeed = 5;
 var ballColor = "white"
 var paddleColor = "white"
-
+var playerScore = 0
+var computerScore = 0
 function reset() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -39,12 +40,12 @@ function reset() {
     move = newx;
     prex = 0;
     prey = 0;
-    x = canvas.width/2; //radius + 10;
-    y = Math.ceil(Math.random()*canvas.height);
+    x = canvas.width / 2; //radius + 10;
+    y = Math.ceil(Math.random() * canvas.height);
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
     DrawPlayerPaddle()
-    //   drawOverPlayerPaddle()    
+    drawScore()
 }
 function ErasePlayerPaddle() {
     ctx.beginPath();
@@ -85,27 +86,6 @@ function handleKeyDown(event) {
     event.preventDefault();
 }
 
-
-// function drawOverPlayerPaddle(){    
-//     ctx.beginPath();
-//     ctx.strokeStyle = 'black'
-//     ctx.fillStyle = 'black';
-//     ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight)
-//     // ctx.ellipse(prex, y, radius, radius, 0, 0, 2 * Math.PI, false)
-//     ctx.fill()
-//     ctx.stroke()
-//     // Draw a new one
-//     ctx.beginPath();
-//     ctx.strokeStyle = 'black';
-//     ctx.fillStyle = paddleColor;
-//     // ctx.ellipse(x, y, radius, radius, 0, 0, 2 * Math.PI, false)
-//     ctx.fillRect(playerPaddleX, playerPaddleY, radius, paddleHeight);
-//     ctx.fill()
-//     ctx.stroke()
-//     ctx.beginPath();
-
-// }
-
 function setup() {
     window.addEventListener("keydown", handleKeyDown, true)
     canvas = document.getElementById("myCanvas");
@@ -114,6 +94,14 @@ function setup() {
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     reset()
     ctx.lineWidth = 1;
+}
+function drawScore() {
+    //Player Score
+    ctx.font = "50px Comic Sans MS";
+    ctx.fillStyle = 'white'
+    ctx.fillText(playerScore, (canvas.width / 4)-20, 50);
+    //Computer Score
+    ctx.fillText(computerScore, ((canvas.width / 4) * 3), 50);
 }
 
 function moveball() {
@@ -131,9 +119,11 @@ function moveball() {
         }
     }
     if (x < 0) {
+        computerScore = computerScore + 1
         reset()
     }
     if (x > canvas.width) {
+        playerScore ++
         reset()
     }
     if (y <= 0) {
@@ -197,8 +187,8 @@ function centerLine() {
     ctx.strokeStyle = 'white'
     ctx.fillStyle = 'white'
     ctx.setLineDash([5, 10]);
-    ctx.moveTo(canvas.width/2, 0);
-    ctx.lineTo(canvas.width/2, canvas.height);
+    ctx.moveTo(canvas.width / 2, 0);
+    ctx.lineTo(canvas.width / 2, canvas.height);
     ctx.stroke();
 }
 function draw() {
@@ -206,6 +196,7 @@ function draw() {
     drawball()
     drawComputerPaddle()
     centerLine()
+    drawScore()
 }
 
 function myfunction() {
