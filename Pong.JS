@@ -14,9 +14,9 @@ var canvas;
 var ctx;
 var move = Math.ceil(Math.random() * 100);
 var y = 0;
-var radius = 12;
-var paddleHeight = 50;
-var paddleSpeed = 3;
+var radius = 5;
+var paddleHeight = 75;
+var paddleSpeed = 5;
 var ballColor = "white"
 var paddleColor = "white"
 
@@ -31,8 +31,8 @@ function reset() {
     theta = 1;
     hyp = 2;
     drawtimer;
-    newx = 2 + Math.ceil(Math.random() * 3)
-    newy = 3 // Math.ceil(Math.random() * 3)
+    newx = 2 + Math.ceil(Math.random() * 5)
+    newy = 6 // Math.ceil(Math.random() * 3)
     //    newx = Math.ceil(hyp * Math.sin(theta * Math.PI / 180));
     //    newy = Math.ceil(hyp * Math.cos(theta * Math.PI / 180));
     angle = newy;
@@ -72,13 +72,13 @@ function handleKeyDown(event) {
     }
     if (event.keyCode == 40) {
         ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY + 10
+        playerPaddleY = playerPaddleY + 20
         DrawPlayerPaddle()
         // Draw a new one
         return
     } else if (event.keyCode == 38) {
         ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY - 10
+        playerPaddleY = playerPaddleY - 20
         DrawPlayerPaddle()
         return
     }
