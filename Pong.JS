@@ -113,7 +113,7 @@ function moveball() {
         if (y >= playerPaddleY && y <= playerPaddleY + paddleHeight) {
             move = newx;
         }
-    } else if (x >= comPaddleX - radius) {
+    } else if (x >= comPaddleX - radius && x <= comPaddleX+radius) {
         if (y > comPaddleY - 1 && y < comPaddleY + paddleHeight + 1) {
             move = -1 * newx;
         }
