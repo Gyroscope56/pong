@@ -48,8 +48,8 @@ function reset() {
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
     drawScore()
-    if (isGameRunning == true){
-        DrawPlayerPaddle()    
+    if (isGameRunning == true) {
+        DrawPlayerPaddle()
     }
 }
 
@@ -58,7 +58,7 @@ function endGame() {
         reset()
         ctx.font = "100px Comic Sans MS";
         ctx.fillStyle = 'white'
-        ctx.fillText("YOU WON!!!", (canvas.width / 2)-275, canvas.height/2);
+        ctx.fillText("YOU WON!!!", (canvas.width / 2) - 275, canvas.height / 2);
         myStopFunction()
         isGameRunning = false
         ErasePlayerPaddle()
@@ -66,7 +66,7 @@ function endGame() {
         reset()
         ctx.font = "100px Comic Sans MS";
         ctx.fillStyle = 'white'
-        ctx.fillText("Computer Won! Good try!", 10, canvas.height/2);
+        ctx.fillText("Computer Won! Good try!", 10, canvas.height / 2);
         myStopFunction()
         isGameRunning = false
         ErasePlayerPaddle()
@@ -111,7 +111,7 @@ function handleKeyDown(event) {
             DrawPlayerPaddle()
             return
         }
-        event.preventDefault();    
+        event.preventDefault();
     }
 }
 
@@ -129,7 +129,7 @@ function drawScore() {
     //Player Score
     ctx.font = "50px Comic Sans MS";
     ctx.fillStyle = 'white'
-    ctx.fillText(playerScore, (canvas.width / 4)-20, 50);
+    ctx.fillText(playerScore, (canvas.width / 4) - 20, 50);
     //Computer Score
     ctx.fillText(computerScore, ((canvas.width / 4) * 3), 50);
 }
@@ -143,7 +143,7 @@ function moveball() {
         if (y >= playerPaddleY && y <= playerPaddleY + paddleHeight) {
             move = newx;
         }
-    } else if (x >= comPaddleX - radius && x <= comPaddleX+radius) {
+    } else if (x >= comPaddleX - radius && x <= comPaddleX + radius) {
         if (y > comPaddleY - 1 && y < comPaddleY + paddleHeight + 1) {
             move = -1 * newx;
         }
@@ -153,7 +153,7 @@ function moveball() {
         reset()
     }
     if (x > canvas.width) {
-        playerScore ++
+        playerScore++
         reset()
     }
     if (y <= 0) {
