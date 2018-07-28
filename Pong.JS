@@ -1,3 +1,4 @@
+var isGameRunning = true;
 var scoreToWin = 10;
 var i = 0;
 var playerPaddleX = 0;
@@ -22,6 +23,7 @@ var ballColor = "white"
 var paddleColor = "white"
 var playerScore = 0
 var computerScore = 0
+
 function reset() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -45,22 +47,29 @@ function reset() {
     y = Math.ceil(Math.random() * canvas.height);
     playerPaddleX = 20;
     comPaddleX = canvas.width - 20;
-    DrawPlayerPaddle()
     drawScore()
+    if (isGameRunning == true){
+        DrawPlayerPaddle()    
+    }
 }
+
 function endGame() {
     if (playerScore == scoreToWin) {
         reset()
         ctx.font = "100px Comic Sans MS";
         ctx.fillStyle = 'white'
-        ctx.fillText("YOU WON!!!", (canvas.width / 2), canvas.height/2);
+        ctx.fillText("YOU WON!!!", (canvas.width / 2)-275, canvas.height/2);
         myStopFunction()
+        isGameRunning = false
+        ErasePlayerPaddle()
     } else if (computerScore == scoreToWin) {
         reset()
         ctx.font = "100px Comic Sans MS";
         ctx.fillStyle = 'white'
-        ctx.fillText("Computer Won! Good try!", (canvas.width / 2), canvas.height/2);
+        ctx.fillText("Computer Won! Good try!", 10, canvas.height/2);
         myStopFunction()
+        isGameRunning = false
+        ErasePlayerPaddle()
     }
 }
 function ErasePlayerPaddle() {
@@ -72,6 +81,7 @@ function ErasePlayerPaddle() {
     ctx.fill()
     ctx.stroke()
 }
+
 function DrawPlayerPaddle() {
     ctx.beginPath();
     ctx.strokeStyle = 'black';
@@ -82,24 +92,27 @@ function DrawPlayerPaddle() {
     ctx.stroke()
     ctx.beginPath();
 }
+
 function handleKeyDown(event) {
-    console.log("Got keydown", event)
-    if (event.defaultPrevented) {
-        return; // Should do nothing if the default action has been cancelled
+    if (isGameRunning == true) {
+        console.log("Got keydown", event)
+        if (event.defaultPrevented) {
+            return; // Should do nothing if the default action has been cancelled
+        }
+        if (event.keyCode == 40) {
+            ErasePlayerPaddle()
+            playerPaddleY = playerPaddleY + 20
+            DrawPlayerPaddle()
+            // Draw a new one
+            return
+        } else if (event.keyCode == 38) {
+            ErasePlayerPaddle()
+            playerPaddleY = playerPaddleY - 20
+            DrawPlayerPaddle()
+            return
+        }
+        event.preventDefault();    
     }
-    if (event.keyCode == 40) {
-        ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY + 20
-        DrawPlayerPaddle()
-        // Draw a new one
-        return
-    } else if (event.keyCode == 38) {
-        ErasePlayerPaddle()
-        playerPaddleY = playerPaddleY - 20
-        DrawPlayerPaddle()
-        return
-    }
-    event.preventDefault();
 }
 
 function setup() {
@@ -111,6 +124,7 @@ function setup() {
     reset()
     ctx.lineWidth = 1;
 }
+
 function drawScore() {
     //Player Score
     ctx.font = "50px Comic Sans MS";
@@ -221,6 +235,7 @@ function myfunction() {
     draw();
     drawtimer = setInterval(function () { draw(); }, 20);
 }
+
 function myStopFunction() {
     clearInterval(drawtimer);
 }
