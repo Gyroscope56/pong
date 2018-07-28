@@ -16,7 +16,7 @@ var canvas;
 var ctx;
 var move = Math.ceil(Math.random() * 100);
 var y = 0;
-var radius = 5;
+var radius = 10;
 var paddleHeight = 75;
 var paddleSpeed = 5;
 var ballColor = "white"
