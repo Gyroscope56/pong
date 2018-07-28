@@ -1,3 +1,4 @@
+var scoreToWin = 10;
 var i = 0;
 var playerPaddleX = 0;
 var playerPaddleY = 300;
@@ -46,6 +47,21 @@ function reset() {
     comPaddleX = canvas.width - 20;
     DrawPlayerPaddle()
     drawScore()
+}
+function endGame() {
+    if (playerScore == scoreToWin) {
+        reset()
+        ctx.font = "100px Comic Sans MS";
+        ctx.fillStyle = 'white'
+        ctx.fillText("YOU WON!!!", (canvas.width / 2), canvas.height/2);
+        myStopFunction()
+    } else if (computerScore == scoreToWin) {
+        reset()
+        ctx.font = "100px Comic Sans MS";
+        ctx.fillStyle = 'white'
+        ctx.fillText("Computer Won! Good try!", (canvas.width / 2), canvas.height/2);
+        myStopFunction()
+    }
 }
 function ErasePlayerPaddle() {
     ctx.beginPath();
@@ -197,10 +213,14 @@ function draw() {
     drawComputerPaddle()
     centerLine()
     drawScore()
+    endGame()
 }
 
 function myfunction() {
     setup();
     draw();
     drawtimer = setInterval(function () { draw(); }, 20);
+}
+function myStopFunction() {
+    clearInterval(drawtimer);
 }
